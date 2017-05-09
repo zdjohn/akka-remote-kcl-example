@@ -7,10 +7,10 @@ namespace IngestionService
     {
         public bool Invoke()
         {
-            //todo: should be set at app setting config instead here, 
-            //and change the folder path to relative of  excutable
+            //todo:1. should be set at app setting config instead here,
+            //todo: you need to set up your own IAM and kinesis, and config your kcl.properties accordingly
+            //how to invoke KCL see example: https://github.com/awslabs/amazon-kinesis-client-net/blob/master/Bootstrap/Bootstrap.cs
 
-            //see example: https://github.com/awslabs/amazon-kinesis-client-net/blob/master/Bootstrap/Bootstrap.cs
             var kiniesisJars = "amazon-kinesis-client-1.6.5.jar...";
             var key = "";
             var secret = "";
