@@ -9,7 +9,6 @@ kinesis processor is not hooked up by default, but sample and comments is provid
 **By intentionally design a fragile component piece inside your application achitecture, and make it fail fast. 
 This protects the system as a whole.**
 
-i live, i die , i live again
 
 ![i live, i die , i live again](http://i.makeagif.com/media/6-02-2016/X0PGo3.gif)
 
