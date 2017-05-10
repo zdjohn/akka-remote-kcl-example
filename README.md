@@ -6,7 +6,8 @@ due to the complexity of requisition of setting up aws IAM and kinesis.
 
 kinesis processor is not hooked up by default, but sample and comments is provided inside the source code
 
-#By intentenally design a fragile peace inside your application achitecture, it protects the system as whole burning down.
+**By intentenally design a fragile component piece inside your application achitecture, and make it fail fast. 
+It protects the system as a whole.
 
 i live, i die , i live again
 
