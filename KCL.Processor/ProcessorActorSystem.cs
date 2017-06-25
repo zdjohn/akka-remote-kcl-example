@@ -19,7 +19,6 @@ namespace KCL.Processor
             if (_system != null)
             {
                 _system.Terminate();
-
                 _system = null;
             }
         }

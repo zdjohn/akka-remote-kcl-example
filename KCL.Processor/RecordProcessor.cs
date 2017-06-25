@@ -32,13 +32,11 @@ namespace KCL.Processor
                 //push records to ingestion service receiver actor
                 var isSuccess =
                      ConsumerActorSystem.RecordReceiver.Ask<bool>(input.Records, TimeSpan.FromSeconds(5)).GetAwaiter().GetResult();
-                //how to trigger checkpoint 
-                Logger.Fatal($"remote service health status: {isSuccess}");
+                Logger.Info($"remote service health status: {isSuccess}");
 
                 if (isSuccess)
                 {
-                    Logger.Info($"is message sent successful: {isSuccess}");
-
+                    //check point on records successfullly sent accross.
                     input.Checkpointer.Checkpoint(RetryingCheckpointErrorHandler.Create(3, Backoff));
                 }
                 else
@@ -47,8 +45,6 @@ namespace KCL.Processor
                     Logger.Fatal("i live, i die, i live again");
                     Environment.Exit(0);
                 }
-                
-                
             }
             catch (Exception ex)
             {

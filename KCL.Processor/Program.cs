@@ -6,16 +6,20 @@ using System.Threading.Tasks;
 using Akka.Actor;
 using Amazon.Kinesis.ClientLibrary;
 using Autofac;
+using NLog;
 
 namespace KCL.Processor
 {
     class Program
     {
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         /// <summary>
         /// This method creates a KclProcess and starts running a Processor instance.
         /// </summary>
         public static void Main(string[] args)
         {
+
             //set up actor system
             ConsumerActorSystem.Initialize();
             try
@@ -24,7 +28,7 @@ namespace KCL.Processor
             }
             catch (Exception e)
             {
-                Console.WriteLine($"i live, i die, i live again {e.Message} {e.InnerException?.Message}");
+                Logger.Error($"{e.Message} {e.InnerException?.Message}");
                 Environment.Exit(-1);
             }
         }
