@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace IngestionService
 {
@@ -46,14 +47,15 @@ namespace IngestionService
             //api health check logic here
             var random = new Random();
             var x = random.Next();
-            //random faliure
-            return x%9 != 0;
+            //random faliure: set to 10% of chance api status fail
+            //return x%10 != 0;
+            return true;
         }
 
         private bool checkDbStatus()
         {
             //db store check logic here
-            return true;
+            return File.Exists("healthy.txt");
         }
     }
 

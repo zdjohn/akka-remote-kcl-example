@@ -137,6 +137,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <Content Include="healthy.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="jars\amazon-kinesis-client-1.7.2.jar">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

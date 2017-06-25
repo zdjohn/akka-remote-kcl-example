@@ -22,7 +22,7 @@ namespace KCL.Processor
         /// </param>
         public void Initialize(InitializationInput input)
         {
-            Console.Error.WriteLine("Initializing record processor for shard: " + input.ShardId);
+            Logger.Debug("Initializing record processor for shard: " + input.ShardId);
         }
 
         public void ProcessRecords(ProcessRecordsInput input)
@@ -57,7 +57,7 @@ namespace KCL.Processor
 
         public void Shutdown(ShutdownInput input)
         {
-            Console.Error.WriteLine("Shutting down record processor for shard");
+            Logger.Debug("Shutting down record processor for shard");
             // Checkpoint after reaching end of shard, so we can start processing data from child shards.
             if (input.Reason == ShutdownReason.TERMINATE)
             {
