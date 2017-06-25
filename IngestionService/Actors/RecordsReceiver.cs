@@ -14,8 +14,6 @@ namespace IngestionService
             Ready();
         }
 
-       
-
         protected override void Ready()
         {
             Log.Info($"{GetType()} is now ready");
@@ -29,13 +27,33 @@ namespace IngestionService
 
             Receive<List<Record>>(records =>
             {
-                //processing some logic here 
-                Log.Info($"getting records.............................. {records.Count} in batch................... ");
-                //or pass to other actors
-                _healthyStatus.LogKclTimestamp();
+                if (_healthyStatus.IsHealthy)
+                {
+                    //processing some logic here 
+                    Log.Warning(
+                        $"getting records.............................. {records.Count} in batch................... ");
+                    //or pass to other actors
+                    _healthyStatus.LogKclTimestamp();
+                }
+                else
+                {
+                    Log.Warning($"stashing in coming messages");
+                    Stash.Stash();
+                }
                 Sender.Tell(_healthyStatus.IsHealthy);
             });
             base.Ready();
+        }
+
+        protected override void Pending()
+        {
+            base.Pending();
+            ReceiveAny(x =>
+            {
+                Log.Warning($"stashing in coming messages");
+                Stash.Stash();
+                Sender.Tell(_healthyStatus.IsHealthy);
+            });
         }
 
     }

@@ -42,7 +42,7 @@ namespace KCL.Processor
                 else
                 {
                     //ingestion service unhealthy, shut down processor
-                    Logger.Fatal("i live, i die, i live again");
+                    Logger.Fatal("Nux: i live, i die, i live again");
                     Environment.Exit(0);
                 }
             }
@@ -50,6 +50,7 @@ namespace KCL.Processor
             {
                 //log exception
                 Logger.Error(ex);
+                Logger.Fatal("Nux: i live, i die, i live again");
                 //shut down processor
                 Environment.Exit(0);
             }

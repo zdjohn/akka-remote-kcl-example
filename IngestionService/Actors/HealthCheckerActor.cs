@@ -61,14 +61,14 @@ namespace IngestionService
         private void Yellow()
         {
             Log.Debug($"i turned in Yellow");
+            _healthyStatus.CheckHealthy();
             if (_healthyStatus.IsHealthy)
             {
-                Log.Info("try to start remote processor...");
+                Log.Info("trying to start remote processor...");
 
                 if (_invoker.Invoke())
                 {
-                    Log.Info("involked success...");
-                    //_healthyStatus.LogKclTimestamp();
+                    Log.Info("KCL is involked success...");
                     Become(Green);
                 }
             }

@@ -18,19 +18,10 @@ namespace IngestionService
         }
 
         public IStash Stash { get; set; }
-        protected override bool AroundReceive(Receive receive, object message)
-        {
-            var healthMessage = message as HealthyStatus;
-            if (_healthyStatus.IsHealthy || healthMessage!=null)
-            {
-                return base.AroundReceive(receive, message);
-            }
-            Stash.Stash();
-            return false;
-        }
+        
         protected virtual void Ready()
         {
-            Log.Warning("Actor status: Ready");
+            Log.Info("Actor status: Ready");
 
             Receive<HealthyStatus>(x =>
             {
@@ -40,6 +31,7 @@ namespace IngestionService
                     Become(Pending);
                 }
             });
+            Log.Info($"un stashing messages");
             Stash?.UnstashAll();
         }
 

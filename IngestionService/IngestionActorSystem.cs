@@ -36,7 +36,7 @@ namespace IngestionService
             //actors system initialized
             _system.Scheduler.ScheduleTellRepeatedly(
                 TimeSpan.FromSeconds(10),
-                TimeSpan.FromSeconds(30),
+                TimeSpan.FromSeconds(5),
                 HealthChecker, new CheckStatus(), ActorRefs.NoSender);
         }
 
