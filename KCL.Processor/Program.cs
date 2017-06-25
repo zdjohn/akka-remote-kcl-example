@@ -18,12 +18,9 @@ namespace KCL.Processor
         {
             //set up actor system
             ConsumerActorSystem.Initialize();
-
-            var container = GetContainer();
-            var processor = container.Resolve<IRecordProcessor>();
             try
             {
-                KclProcess.Create(processor).Run();
+                KclProcess.Create(new RecordProcessor()).Run();
             }
             catch (Exception e)
             {
@@ -31,12 +28,6 @@ namespace KCL.Processor
                 Environment.Exit(-1);
             }
         }
-
-        private static IContainer GetContainer()
-        {
-            var builder = new ContainerBuilder();
-            builder.RegisterAssemblyModules(Assembly.GetExecutingAssembly());
-            return builder.Build();
-        }
+        
     }
 }

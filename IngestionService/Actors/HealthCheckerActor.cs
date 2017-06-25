@@ -61,8 +61,7 @@ namespace IngestionService
         private void Yellow()
         {
             Log.Debug($"i turned in Yellow");
-            var isHealthy = _healthyStatus.CheckHealthy();
-            if (isHealthy)
+            if (_healthyStatus.IsHealthy)
             {
                 Log.Info("try to start remote processor...");
 
@@ -79,7 +78,8 @@ namespace IngestionService
             }
             Receive<CheckStatus>(x =>
             {
-                if (_healthyStatus.IsHealthy)
+                var isHealthy = _healthyStatus.CheckHealthy();
+                if (isHealthy)
                 {
                     Become(Green);
                 }

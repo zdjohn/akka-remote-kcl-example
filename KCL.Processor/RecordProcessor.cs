@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using Akka.Actor;
 using Amazon.Kinesis.ClientLibrary;
+using NLog;
 
 namespace KCL.Processor
 {
@@ -9,7 +11,7 @@ namespace KCL.Processor
         /// <value>The time to wait before this record processor
         /// reattempts either a checkpoint, or the processing of a record.</value>
         private static readonly TimeSpan Backoff = TimeSpan.FromSeconds(3);
-        
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         /// <summary>
         /// This method is invoked by the Amazon Kinesis Client Library before records from the specified shard
         /// are delivered to this SampleRecordProcessor.
@@ -23,27 +25,35 @@ namespace KCL.Processor
             Console.Error.WriteLine("Initializing record processor for shard: " + input.ShardId);
         }
 
-        public async void ProcessRecords(ProcessRecordsInput input)
+        public void ProcessRecords(ProcessRecordsInput input)
         {
             try
             {
                 //push records to ingestion service receiver actor
                 var isSuccess =
-                    await ConsumerActorSystem.RecordReceiver.Ask<bool>(input.Records, TimeSpan.FromSeconds(5));
+                     ConsumerActorSystem.RecordReceiver.Ask<bool>(input.Records, TimeSpan.FromSeconds(5)).GetAwaiter().GetResult();
+                //how to trigger checkpoint 
+                Logger.Fatal($"remote service health status: {isSuccess}");
 
-                //ingestion service unhealthy, shut down processor
-                if (!isSuccess)
+                if (isSuccess)
                 {
-                    Console.WriteLine("i live, i die, i live again");
+                    Logger.Info($"is message sent successful: {isSuccess}");
+
+                    input.Checkpointer.Checkpoint(RetryingCheckpointErrorHandler.Create(3, Backoff));
+                }
+                else
+                {
+                    //ingestion service unhealthy, shut down processor
+                    Logger.Fatal("i live, i die, i live again");
                     Environment.Exit(0);
                 }
-
-                input.Checkpointer.Checkpoint(errorHandler: RetryingCheckpointErrorHandler.Create(3, Backoff));
+                
+                
             }
             catch (Exception ex)
             {
                 //log exception
-                Console.WriteLine(ex.Message);
+                Logger.Error(ex);
                 //shut down processor
                 Environment.Exit(0);
             }

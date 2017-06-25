@@ -23,6 +23,7 @@ namespace IngestionService
 
         public bool CheckHealthy()
         {
+            //impeletemt your health status logic here
             IsHealthy = checkApiStatus() && checkDbStatus();
             return IsHealthy;
         }
@@ -30,8 +31,10 @@ namespace IngestionService
         public bool IsHealthy { get; private set; }
 
         public DateTime KclTimeStamp => _kclTimestamp;
-        public bool IsRemoteIdle 
-            => (DateTime.UtcNow - _kclTimestamp) > KclMaxIdleTime;
+
+        public bool IsRemoteIdle
+            => false;
+        //(DateTime.UtcNow - _kclTimestamp) > KclMaxIdleTime;
         
         public void LogKclTimestamp()
         {
@@ -44,7 +47,7 @@ namespace IngestionService
             var random = new Random();
             var x = random.Next();
             //random faliure
-            return x%3==0;
+            return x%9 != 0;
         }
 
         private bool checkDbStatus()

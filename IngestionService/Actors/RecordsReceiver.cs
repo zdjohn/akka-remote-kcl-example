@@ -30,7 +30,7 @@ namespace IngestionService
             Receive<List<Record>>(records =>
             {
                 //processing some logic here 
-                Log.Info("getting records...");
+                Log.Info($"getting records.............................. {records.Count} in batch................... ");
                 //or pass to other actors
                 _healthyStatus.LogKclTimestamp();
                 Sender.Tell(_healthyStatus.IsHealthy);
