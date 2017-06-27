@@ -30,6 +30,11 @@ https://github.com/zdjohn/akka-remote-kcl-exapmle/blob/master/IngestionService/A
   </appSettings>
 ~~~
 
+The nuget package of AWS_KCL_DOTNET is compiled from the branch:
+https://github.com/zdjohn/amazon-kinesis-client-net/tree/cake
+you can run `build.ps1` to get the same nuget i am using in this example.
+I rased issue: https://github.com/awslabs/amazon-kinesis-client-net/issues/14 
+if you like it, or you have any thought, please comment along. kinesis need more dotnet love. :-)
 
 
 **By intentionally design a fragile component piece inside your application achitecture, and make it fail fast. 
