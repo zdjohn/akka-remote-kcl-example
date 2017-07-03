@@ -14,12 +14,14 @@ https://github.com/zdjohn/akka-remote-kcl-exapmle/blob/master/IngestionService/C
 builder.RegisterType<KclProcessInvoker>().As<IRemoteProcessInvoker>().SingleInstance();
 ~~~
 
-*setup your kinesis:*
+***setup your kinesis:***
+
 you will need to have a aws account and kinesis stream available in order to have kenisis processor working:
 see more detailed documentation here: http://docs.aws.amazon.com/streams/latest/dev/before-you-begin.html
 
-see required setting in app settings:
-https://github.com/zdjohn/akka-remote-kcl-exapmle/blob/master/IngestionService/App.config
+***see required setting in app settings:***
+
+`https://github.com/zdjohn/akka-remote-kcl-exapmle/blob/master/IngestionService/App.config`
 ~~~
  <appSettings>
     <add key="access_key" value="your_aws_access_key" />
@@ -30,6 +32,20 @@ https://github.com/zdjohn/akka-remote-kcl-exapmle/blob/master/IngestionService/A
   </appSettings>
 ~~~
 
+***How to run***
+~~~
+F5
+~~~
+you will need to use visual studio 2017
+
+***how to simulate faliour:***
+
+inside solution there is a healthy.txt file, which sample health checker checking against.
+by: `rm ./your_project_path/bin/debug/health.txt` it will trigger health checker fail, resulting exteral processor shutdown.
+by: `New-Item ./your_project_path/bin/debug/health.txt` will help you resotre health status, then restore whole processor solution
+
+
+***dependency***
 The nuget package of AWS_KCL_DOTNET is compiled from the branch:
 
 https://github.com/zdjohn/amazon-kinesis-client-net/tree/cake
