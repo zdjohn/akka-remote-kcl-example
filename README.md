@@ -66,7 +66,7 @@ if you like it, or you have any thought, please comment along. kinesis need more
 This protects the system as a whole.**
 
 
-![i live, i die , i live again](http://i.makeagif.com/media/6-02-2016/X0PGo3.gif)
+![nux](X0PGo3.gif "i live, i die, i live again")
 
 
 Happy coding!
