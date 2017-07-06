@@ -41,8 +41,13 @@ you will need to use visual studio 2017
 ***how to simulate failure:***
 
 inside solution there is a healthy.txt file, which sample health checker checking against.
-by: `rm ./your_project_path/bin/debug/health.txt` it will trigger health checker fail, resulting exteral processor shutdown.
-by: `New-Item ./your_project_path/bin/debug/health.txt` will help you resotre health status, then restore whole processor solution
+by: `rm ./your_project_path/bin/debug/health.txt` 
+
+it will trigger health checker fail, resulting exteral processor shutdown.
+
+by: `New-Item ./your_project_path/bin/debug/health.txt` 
+
+will help you resotre health status, then restore whole processor solution
 
 
 ***dependency***
