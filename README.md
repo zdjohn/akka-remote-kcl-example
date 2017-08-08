@@ -2,7 +2,9 @@ This is a example for https://medium.com/zdjohn/making-resilient-service-using-a
 
 The main prupose is to showcase using kensis + akka.net remote to build a self healing service that can replay events all by itself from the time of critical failure.
 
-DDD Sydney Talk slides: https://docs.google.com/presentation/d/1-eEGSHm8I8tzKUdA2E9BGGbD7iXEYAc_W68Oa8gD-2s
+***DDD Sydney Talk slides:***
+
+https://docs.google.com/presentation/d/1-eEGSHm8I8tzKUdA2E9BGGbD7iXEYAc_W68Oa8gD-2s
 
 in side example there is two types of processor:
 * dummy processor
